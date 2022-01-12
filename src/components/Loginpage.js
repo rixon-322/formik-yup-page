@@ -1,33 +1,48 @@
 import React from 'react'
 import {useFormik} from 'formik'
+import * as Yup from 'yup'
 
 function Loginpage() {
 
-    const validate = values =>{
-        const errors = {}
+    // const validate = values =>{
+    //     const errors = {}
 
-        if (!values.username){
-            errors.username = "Username required*"
-        }
+    //     if (!values.username){
+    //         errors.username = "Username required*"
+    //     }else if(values.username.length<4){
+    //         errors.username = "Must be 4 characters or more"
+    //     }
 
-        if (!values.password){
-            errors.password = "Password required*"
-        }
+    //     if (!values.password){
+    //         errors.password = "Password required*"
+    //     }
         
-        return errors
-    }
+    //     return errors
+    // }
 
     const formik = useFormik({
         initialValues : { username: "",
                           password: "" 
-    },
+        },
 
-    validate,
-    onSubmit : values =>{
-        alert(JSON.stringify(values, null, 2))
-    }
+        validationSchema: Yup.object({
+            username: Yup.string()
+                .min(6,"username is too short")
+                .max(20,"username is too long")
+                .required("Username required"),
+            password: Yup.string()
+                .min(6,"password is too short")
+                .max(15,"password is too long")
+                .required("Password required")
+                .oneOf([Yup.ref("username"), null], "Username and password must not be the same")
+        }),
+
+        onSubmit : values =>{
+            alert(JSON.stringify(values, null, 2))
+        }
     
-    })
+    });
+    console.log(formik.errors);
 
 
     return (
@@ -42,15 +57,15 @@ function Loginpage() {
 
                     <input name='username' placeholder='Email address or phone number'
                             onChange={formik.handleChange} 
-                            value={formik.values.username} 
+                            value={formik.values.username}
                     ></input> <br/>
-                    {formik.touched.username && formik.errors.username ? <p className='errors'>{formik.errors.username}</p> : null}
+                    {formik.errors.username ? <p className='errors'>{formik.errors.username}</p> : null}
                     
-                    <input name='password' placeholder='Password' type='password'
+                    <input name='password' placeholder='Password'
                             onChange={formik.handleChange} 
-                            value={formik.values.password} 
+                            value={formik.values.password}
                     ></input> <br/>
-                    {formik.touched.password && formik.errors.password ? <p className='errors'>{formik.errors.password}</p> : null}
+                    {formik.errors.password ? <p className='errors'>{formik.errors.password}</p> : null}
                     
                     <button className='login-btn'>Log In</button>
                     
