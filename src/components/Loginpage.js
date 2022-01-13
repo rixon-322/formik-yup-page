@@ -46,37 +46,38 @@ function Loginpage() {
 
 
     return (
-        <div>
-            <div className='header'>
+        <div className='container'>
+            <div className='left'>
                 <h1>facebook</h1>
-                <h2>Facebook helps you connect and share<br/> with the people in your life.</h2>
+                <p>Facebook helps you connect and share <br/>with the people in your life.</p>
             </div>
             
-            <div className='container'>
-                <form className='form' onSubmit = {formik.handleSubmit}>
+            <div className='right'>
+                <form onSubmit = {formik.handleSubmit}>
 
                     <input name='username' placeholder='Email address or phone number'
                             onChange={formik.handleChange} 
                             value={formik.values.username}
-                    ></input> <br/>
+                    ></input>
                     {formik.errors.username ? <p className='errors'>{formik.errors.username}</p> : null}
                     
                     <input name='password' placeholder='Password'
                             onChange={formik.handleChange} 
                             value={formik.values.password}
-                    ></input> <br/>
+                    ></input>
                     {formik.errors.password ? <p className='errors'>{formik.errors.password}</p> : null}
                     
-                    <button className='login-btn'>Log In</button>
+                    <button href="" className="loginBtn" type='submit'>Log In</button>
+                    <a href="" className="forget">Forgotten password?</a>
                     
-                    <p className='for-pass'>Forgotten password?</p>
-                    
-                    <button className='create-btn' type='submit'>Create New Account</button>
+                    <div className="sign-up">
+                        <a href="" className="signupBtn">Create New Account</a>
+                    </div>
 
                 </form>
-            </div>
-            <div className='end-line'>
-                <p><a href='#' className='para'>Create a Page</a>  for a celebrity, brand of business</p>
+
+                <p><b className='para'>Create a Page</b> for a celebrity, band or business.</p>
+
             </div>
 
         </div>
