@@ -146,20 +146,3 @@ form input:hover{
 }
 
 
-
-@media(max-width:950px){
-    .container{
-        flex-direction: column;
-    }
-    
-    .left{
-        width: 400px;
-        align-content: center;
-        align-items: center;
-    }
-    
-    .left p{
-        height: 75px;
-    }
-}
-
